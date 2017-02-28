@@ -1,6 +1,6 @@
 ## this is dana's github page
 
-this is my web program [carmodel](https://github.com/danawang/dana.github.io/blob/master/three/carmodel.html) have a look
+this is my web program [carmodel](https://dana.github.io/blob/master/three/carmodel.html) have a look
 
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
