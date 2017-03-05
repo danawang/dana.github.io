@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <script type="text/javascript" src="lib/three.js"></script>
+        </head>
+        <body onload="init()">
+            <div>
+                <canvas id="mainCanvas" width="900px" height="600px"></canvas>
+            </div>
+            <script>
+                function init(){
+                    var renderer = new THREE.WebGLRenderer({canvas: document.getElementById('mainCanvas')});
+                    renderer.setClearColor(0x585858);
+                    renderer.shadowMapEnabled = true;
+                    renderer.shadowMapSoft = true;
+                    var scene = new THREE.Scene();
+                    var camera = new THREE.PerspectiveCamera(45, 3/2, 1,100);
+                    camera.position.set(15,4,10);
+                    camera.lookAt(new THREE.Vector3(0,0,0));
+                    scene.add(camera);
+                    
+                    var plane = new THREE.Mesh(new THREE.PlaneGeometry(15, 15, 20, 20), new THREE.MeshLambertMaterial({color: 0x084B8A}));
+                    plane.rotation.x = -Math.PI / 2;
+                    plane.position.y = -3;
+                    plane.receiveShadow = true;
+                    scene.add(plane);
+                    
+                    var material1 = new THREE.MeshLambertMaterial({ color: 0x151515});
+                    var material2 = new THREE.MeshLambertMaterial({ color: 0xFF8000});
+                    var material3 = new THREE.MeshLambertMaterial({ color: 0xD8F781});
+                    
+                    var cube = new THREE.CubeGeometry(8,3,4);
+                    var carbody = new THREE.Mesh(cube,material2);
+                    scene.add(carbody);
+                    var cube2 = new THREE.CubeGeometry(1,2,4);
+                    var carhead = new THREE.Mesh(cube2,material2);
+                    carhead.position.set(4.5,-0.5,0);
+                    scene.add(carhead);
+                    
+                    var carlight = new THREE.SphereGeometry(0.3,4,4);
+                    var carll1 = new THREE.Mesh(carlight,material3);
+                    carll1.position.set(5.15,-0.85,1.25);
+                    scene.add(carll1);
+                    var carll2 = new THREE.Mesh(carlight,material3);
+                    carll2.position.set(5.15,-0.85,-1.25);
+                    scene.add(carll2);
+                    
+                    var torus=new THREE.TorusGeometry(0.7,0.3,20,20);
+                    var torus1 = new THREE.Mesh(torus,material1);
+                    torus1.position.set(2.25,-1.5,2);
+                    scene.add(torus1);
+                    var torus2 = new THREE.Mesh(torus,material1);
+                    torus2.position.set(-2.25,-1.5,2);
+                    scene.add(torus2);
+                    var torus3 = new THREE.Mesh(torus,material1);
+                    torus3.position.set(2,-1.5,-2);
+                    scene.add(torus3);
+                    var torus4 = new THREE.Mesh(torus,material1);
+                    torus4.position.set(-2,-1.5,-2);
+                    scene.add(torus4);
+                    
+                    var light1 = new THREE.SpotLight( 0xffffff, 1, 100, Math.PI / 6, 50);
+                    light1.position.set(15,8,8);
+                    light1.target=carbody;
+                    light1.target=carhead;
+                    light1.target=torus1;
+                    light1.target=torus2;
+                    light1.target=torus3;
+                    light1.target=torus4;
+                    light1.castShaw = true;
+                    
+                    light1.shadowCameraNear = 2;
+                    light1.shadowCameraFar = 10;
+                    light1.shadowCameraFov = 30;
+                    light1.shadowCameraVisible = true;
+                    light1.shadowMapWidth = 1024;
+                    light1.shadowMapHeight = 1024;
+                    light1.shadowDarkness = 0.3;
+                    scene.add(light1);
+                    
+                    //var light2 = new THREE.AmbientLight(0xF2F2F2);
+                    //scene.add(light2);
+                    
+                    renderer.render(scene, camera);
+                }
+                
+            </script>
+        </body>
+    </html>
