@@ -17,10 +17,15 @@
                     camera.lookAt(new THREE.Vector3(0,0,0));
                     scene.add(camera);
                     
+                    var texture = THREE.ImageUtils.loadTexture('pic/logo.png',{},function(){
+                        renderer.render(scene,camera);
+                        });
+                    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+                    texture.repeat.set(2,2);
                     
                     var material1 = new THREE.MeshLambertMaterial({ color: 0x151515});
-                    var material2 = new THREE.MeshLambertMaterial({ color: 0xFF8000});
-                    var material3 = new THREE.MeshLambertMaterial({ color: 0xE1F5A9});
+                    var material2 = new THREE.MeshLambertMaterial({ map: texture});
+                    var material3 = new THREE.MeshLambertMaterial({ map: texture});
                     var cube = new THREE.CubeGeometry(8,3,4);
                     var carbody = new THREE.Mesh(cube,material2);
                     scene.add(carbody);
